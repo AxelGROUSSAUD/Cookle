@@ -12,9 +12,9 @@ class EvaluationType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('date')
-            ->add('name')
-            ->add('star')
+            ->add('name', TextType::class, ['label' => 'Votre nom'])
+            ->add('star', IntegerType::class, ['label' => 'Saisissez votre note'])
+            ->add('save', SubmitType::class, ['label' => 'Enregistrez votre évaluation'])
         ;
     }
 
