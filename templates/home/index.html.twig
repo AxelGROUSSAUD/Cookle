@@ -13,7 +13,8 @@
 
     <div class="card mt-5" style="width: 18rem;">
         <div class="card-body">
-            <h5 class="card-title">{{ randomrecipe.title }} {{ randomrecipe* }}</h5>
+            <h5 class="card-title">{{ randomrecipe.title }} </h5>
+
             <a href="{{ path('recipe_eval', { id: randomrecipe.id }) }}" class="btn btn-primary">Evaluer</a>
         </div>
     </div>
@@ -26,6 +27,7 @@
                     <div class="card mt-5" style="width: 18rem;">
                         <div class="card-body">
                             <h5 class="card-title">{{ r.title }}</h5>
+
                             <a href="{{ path('recipe_edit', { id: r.id }) }}" class="btn btn-primary">Modifer</a>
                         </div>
                     </div>

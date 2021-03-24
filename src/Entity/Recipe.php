@@ -45,13 +45,13 @@ class Recipe
     private $cookingHistory;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Evaluation::class, inversedBy="recipe")
+     * @ORM\OneToMany(targetEntity=Evaluation::class, mappedBy="recipe", orphanRemoval=true)
      */
-    private $evaluation;
+    private $evaluations;
 
     public function __constructEval()
     {
-        $this->evaluation = new ArrayCollection();
+        $this->evaluations = new ArrayCollection();
     }
     /**
      * @ORM\ManyToOne(targetEntity=Source::class, inversedBy="recipe")
@@ -172,15 +172,15 @@ class Recipe
     /**
      * @return Collection|Evaluation[]
      */
-    public function getEvaluation(): Collection
+    public function getEvaluations(): Collection
     {
-        return $this->evaluation;
+        return $this->evaluations;
     }
 
     public function addEvaluation(Evaluation $evaluation): self
     {
-        if (!$this->evaluation->contains($evaluation)) {
-            $this->evaluation[] = $evaluation;
+        if (!$this->evaluations->contains($evaluation)) {
+            $this->evaluations[] = $evaluation;
             $evaluation->setRecipe($this);
         }
 
@@ -189,7 +189,7 @@ class Recipe
 
     public function removeEvaluation(Evaluation $evaluation): self
     {
-        if ($this->evaluation->removeElement($evaluation)) {
+        if ($this->evaluations->removeElement($evaluation)) {
             // set the owning side to null (unless already changed)
             if ($evaluation->getRecipe() === $this) {
                 $evaluation->setRecipe(null);
@@ -210,12 +210,12 @@ class Recipe
         }
          if ($nbevaluation == 0)
          {
-              $totalevaluation = -1;
+              $avgrecipe = -1;
          }
         else
         {
             $avgrecipe = $totalevaluation / $nbevaluation ;
         }
-    return $nbevaluation;
+    return $avgrecipe;
     }
 }

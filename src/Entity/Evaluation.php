@@ -35,10 +35,10 @@ class Evaluation
     private $star;
 
     /**
-     * @ORM\OneToMany(targetEntity=Recipe::class, mappedBy="evaluation")
+     * @ORM\ManyToOne(targetEntity=Recipe::class, inversedBy="evaluations")
+     * @ORM\JoinColumn(nullable=false)
      */
     private $recipe;
-
     public function __construct()
     {
         $this->recipe = new ArrayCollection();

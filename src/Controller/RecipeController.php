@@ -101,7 +101,7 @@ class RecipeController extends AbstractController
     {
         $eval = new Evaluation();
         $eval->setDate(new \DateTime());
-        $recipe-> setEvaluation($eval);
+        $recipe-> addEvaluation($eval);
         $form = $this->createForm(EvaluationType::class, $eval);
         $form->handleRequest($request);
 
