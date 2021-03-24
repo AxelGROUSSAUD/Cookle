@@ -176,4 +176,8 @@ class Recipe
 
         return $this;
     }
+    public function calcAverageEval(): float{
+
+
+    }
 }

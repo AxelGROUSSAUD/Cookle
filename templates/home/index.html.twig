@@ -11,7 +11,13 @@
 <div class="example-wrapper">
     <h1>Recipe of the day ✅</h1>
 
-    <h2>{{ randomrecipe.title }}</h2>
+    <div class="card mt-5" style="width: 18rem;">
+        <div class="card-body">
+            <h5 class="card-title">{{ randomrecipe.title }}</h5>
+            <a href="{{ path('recipe_eval', { id: randomrecipe.id }) }}" class="btn btn-primary">Evaluer</a>
+        </div>
+    </div>
+
 
     <div class="container">
         <div class="row">

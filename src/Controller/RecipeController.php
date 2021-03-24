@@ -4,12 +4,14 @@ namespace App\Controller;
 
 use App\Entity\Evaluation;
 use App\Entity\Recipe;
+use App\Form\EvaluationType;
 use App\Form\RecipeType;
 use App\Repository\RecipeRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+
 
 /**
  * @Route("/recipe")
@@ -92,12 +94,13 @@ class RecipeController extends AbstractController
 
         return $this->redirectToRoute('recipe_index');
     }
-
-    #[Route('/{id}/eval', 'recipe_eval', ['GET', 'POST'])]
+    /**
+     * @Route("/{id}/eval", name="recipe_eval", methods={"GET", "POST"})
+     */
     public function addEval(Request $request, Recipe $recipe): Response
     {
         $eval = new Evaluation();
-        $eval->setDate(new \DateTime(‘now’));
+        $eval->setDate(new \DateTime());
         $recipe-> setEvaluation($eval);
         $form = $this->createForm(EvaluationType::class, $eval);
         $form->handleRequest($request);
