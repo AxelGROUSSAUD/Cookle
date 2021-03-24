@@ -49,6 +49,10 @@ class Recipe
      */
     private $evaluation;
 
+    public function __constructEval()
+    {
+        $this->evaluation = new ArrayCollection();
+    }
     /**
      * @ORM\ManyToOne(targetEntity=Source::class, inversedBy="recipe")
      */
@@ -141,18 +145,6 @@ class Recipe
         return $this;
     }
 
-    public function getEvaluation(): ?Evaluation
-    {
-        return $this->evaluation;
-    }
-
-    public function setEvaluation(?Evaluation $evaluation): self
-    {
-        $this->evaluation = $evaluation;
-
-        return $this;
-    }
-
     public function getSource(): ?Source
     {
         return $this->source;
@@ -176,8 +168,54 @@ class Recipe
 
         return $this;
     }
-    public function calcAverageEval(): float{
 
-///
+    /**
+     * @return Collection|Evaluation[]
+     */
+    public function getEvaluation(): Collection
+    {
+        return $this->evaluation;
+    }
+
+    public function addEvaluation(Evaluation $evaluation): self
+    {
+        if (!$this->evaluation->contains($evaluation)) {
+            $this->evaluation[] = $evaluation;
+            $evaluation->setRecipe($this);
+        }
+
+        return $this;
+    }
+
+    public function removeEvaluation(Evaluation $evaluation): self
+    {
+        if ($this->evaluation->removeElement($evaluation)) {
+            // set the owning side to null (unless already changed)
+            if ($evaluation->getRecipe() === $this) {
+                $evaluation->setRecipe(null);
+            }
+        }
+
+        return $this;
+    }
+    public function calcAverageEval(): float
+    {
+         $nbevaluation = 0 ;
+        $totalevaluation = 0;
+        $avgrecipe = 0;
+        foreach ($this->evaluation as $valeur)
+        {
+            $nbevaluation++;
+            $totalevaluation+= $valeur->getStar();
+        }
+         if ($nbevaluation == 0)
+         {
+              $totalevaluation = -1;
+         }
+        else
+        {
+            $avgrecipe = $totalevaluation / $nbevaluation ;
+        }
+    return $nbevaluation;
     }
 }

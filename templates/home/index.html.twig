@@ -13,7 +13,7 @@
 
     <div class="card mt-5" style="width: 18rem;">
         <div class="card-body">
-            <h5 class="card-title">{{ randomrecipe.title }}</h5>
+            <h5 class="card-title">{{ randomrecipe.title }} {{ randomrecipe* }}</h5>
             <a href="{{ path('recipe_eval', { id: randomrecipe.id }) }}" class="btn btn-primary">Evaluer</a>
         </div>
     </div>

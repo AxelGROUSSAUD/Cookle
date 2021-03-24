@@ -85,33 +85,17 @@ class Evaluation
         return $this;
     }
 
-    /**
-     * @return Collection|Recipe[]
-     */
-    public function getRecipe(): Collection
+
+    public function getRecipe(): ?Recipe
     {
         return $this->recipe;
     }
 
-    public function addRecipe(Recipe $recipe): self
+    public function setRecipe(?Recipe $recipe): self
     {
-        if (!$this->recipe->contains($recipe)) {
-            $this->recipe[] = $recipe;
-            $recipe->setEvaluation($this);
-        }
+        $this->recipe = $recipe;
 
         return $this;
     }
 
-    public function removeRecipe(Recipe $recipe): self
-    {
-        if ($this->recipe->removeElement($recipe)) {
-            // set the owning side to null (unless already changed)
-            if ($recipe->getEvaluation() === $this) {
-                $recipe->setEvaluation(null);
-            }
-        }
-
-        return $this;
-    }
 }
