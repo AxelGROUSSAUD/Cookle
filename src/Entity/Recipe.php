@@ -5,9 +5,14 @@ namespace App\Entity;
 use App\Repository\RecipeRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
+use ApiPlatform\Core\Annotation\ApiFilter;
 use Doctrine\ORM\Mapping as ORM;
+use ApiPlatform\Core\Annotation\ApiResource;
+use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
 
 /**
+ * @ApiResource
+ * @ApiFilter(SearchFilter::class, properties={"id": "exact", "title": "partial"})
  * @ORM\Entity(repositoryClass=RecipeRepository::class)
  */
 class Recipe
@@ -66,6 +71,7 @@ class Recipe
     public function __construct()
     {
         $this->ingredient = new ArrayCollection();
+        $this->evaluations = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -203,10 +209,11 @@ class Recipe
          $nbevaluation = 0 ;
         $totalevaluation = 0;
         $avgrecipe = 0;
-        foreach ($this->evaluation as $valeur)
+        foreach ($this->evaluations as $valeur)
         {
-            $nbevaluation++;
+
             $totalevaluation+= $valeur->getStar();
+            $nbevaluation++;
         }
          if ($nbevaluation == 0)
          {
